@@ -485,17 +485,11 @@ class Poco(PocoAccelerationMixin):
 
     def pre_action(self, action, ui, args):
         for cb in self._pre_action_callbacks:
-            try:
-                cb(self, action, ui, args)
-            except Exception as e:
-                warnings.warn("Error occurred at pre action stage.\n{}".format(traceback.format_exc()))
+            cb(self, action, ui, args)
 
     def post_action(self, action, ui, args):
         for cb in self._post_action_callbacks:
-            try:
-                cb(self, action, ui, args)
-            except Exception as e:
-                warnings.warn("Error occurred at post action stage.\n{}".format(traceback.format_exc()))
+            cb(self, action, ui, args)
 
     def use_render_resolution(self, use=True, resolution=None):
         '''

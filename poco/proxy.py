@@ -297,7 +297,6 @@ class UIObjectProxy(object):
             uiobj._nodes_proxy_is_list = False
             pos = uiobj.get_position()
             sorted_nodes.append((uiobj, pos))
-        sorted_nodes.sort(key=lambda v: (v[1][1], v[1][0]))
 
         for obj, _ in sorted_nodes:
             yield obj

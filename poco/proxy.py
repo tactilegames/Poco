@@ -214,10 +214,6 @@ class UIObjectProxy(object):
         to access the specific UI element. The new UI element will be wrapped by UIObjectProxy instance and therefore
         the returned value is also the UI proxy object.
 
-        The order of UI elements are determined by their position on the screen and not by the selection sequence. This
-        rule is called  "L2R U2D" (one by one from left to right, line by line from up to down), i.e. the most top left
-        UI element is always the first one. See ``IterationOverUI`` for more details.
-
         Warnings:
             This method may cause some performance issues depending on implementation of PocoAgent.
 
@@ -246,7 +242,6 @@ class UIObjectProxy(object):
                 pos = uiobj.get_position()
                 self._sorted_children.append((uiobj, pos))
 
-        self._sorted_children.sort(key=lambda v: (v[1][1], v[1][0]))
         return self._sorted_children[item][0]
 
     def __len__(self):
@@ -302,7 +297,6 @@ class UIObjectProxy(object):
             uiobj._nodes_proxy_is_list = False
             pos = uiobj.get_position()
             sorted_nodes.append((uiobj, pos))
-        sorted_nodes.sort(key=lambda v: (v[1][1], v[1][0]))
 
         for obj, _ in sorted_nodes:
             yield obj

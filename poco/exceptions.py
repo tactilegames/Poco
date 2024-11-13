@@ -51,9 +51,8 @@ class PocoTargetTimeout(PocoException):
 
     def __init__(self, action, poco_obj_proxy):
         super(PocoTargetTimeout, self).__init__()
-        poco_obj_proxy_string = to_text(repr(poco_obj_proxy))
-        self.poco_object_proxy_string = poco_obj_proxy_string
-        self.message = 'Waiting timeout for {} of "{}"'.format(action, poco_obj_proxy_string)
+        self.poco_object_proxy = poco_obj_proxy
+        self.message = 'Waiting timeout for {} of "{}"'.format(action, to_text(repr(poco_obj_proxy)))
 
 
 class PocoNoSuchNodeException(PocoException):
@@ -63,9 +62,8 @@ class PocoNoSuchNodeException(PocoException):
 
     def __init__(self, objproxy):
         super(PocoNoSuchNodeException, self).__init__()
-        obj_proxy_string = to_text(repr(objproxy))
-        self.poco_object_proxy_string = obj_proxy_string
-        self.message = 'Cannot find any visible node by query {}'.format(obj_proxy_string)
+        self.poco_object_proxy_string = objproxy
+        self.message = 'Cannot find any visible node by query {}'.format(to_text(repr(objproxy)))
 
 
 class PocoTargetRemovedException(PocoException):

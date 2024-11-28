@@ -51,7 +51,7 @@ class PocoTargetTimeout(PocoException):
 
     def __init__(self, action, poco_obj_proxy):
         super(PocoTargetTimeout, self).__init__()
-        self.poco_object_proxy = poco_obj_proxy
+        self.poco_object_proxy_string = poco_obj_proxy
         self.message = 'Waiting timeout for {} of "{}"'.format(action, to_text(repr(poco_obj_proxy)))
 
 

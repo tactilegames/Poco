@@ -225,7 +225,7 @@ class Poco(PocoAccelerationMixin):
 
         return self._agent
 
-    def click(self, pos):
+    def click(self, pos, **kwargs):
         """
         Perform click (touch, tap, etc.) action on target device at given coordinates.
 

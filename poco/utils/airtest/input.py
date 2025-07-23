@@ -76,9 +76,9 @@ class AirtestInput(InputInterface):
     def getTouchDownDuration(self):
         return self.default_touch_down_duration
 
-    def click(self, x, y):
+    def click(self, x, y, **kwargs):
         pos = self.get_target_pos(x, y)
-        touch(pos, duration=self.default_touch_down_duration)
+        touch(pos, duration=self.default_touch_down_duration, **kwargs)
 
     def double_click(self, x, y):
         pos = self.get_target_pos(x, y)

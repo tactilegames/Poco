@@ -302,7 +302,7 @@ class UIObjectProxy(object):
             yield obj
 
     @wait
-    def click(self, focus=None, sleep_interval=None):
+    def click(self, focus=None, sleep_interval=None, **kwargs):
         """
         Perform the click action on the UI element(s) represented by the UI proxy. If this UI proxy represents a set of
         UI elements, the first one in the set is clicked and the anchor point of the UI element is used as the default
@@ -325,7 +325,7 @@ class UIObjectProxy(object):
         focus = focus or self._focus or 'center'
         pos_in_percentage = self.get_position(focus)
         self.poco.pre_action('click', self, pos_in_percentage)
-        ret = self.poco.click(pos_in_percentage)
+        ret = self.poco.click(pos_in_percentage, **kwargs)
         if sleep_interval:
             time.sleep(sleep_interval)
         else:

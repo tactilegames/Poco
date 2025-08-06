@@ -2,7 +2,7 @@
 import socket
 
 
-DEFAULT_TIMEOUT = 5
+DEFAULT_TIMEOUT = 20
 DEFAULT_SIZE = 4096
 
 

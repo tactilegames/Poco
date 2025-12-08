@@ -32,3 +32,11 @@ def default_device():
         return current_device()
     except NoDeviceError:
         return connect_device('Android:///')
+
+
+class DeviceConnections:
+    _restore = None
+
+    @classmethod
+    def __init__(cls, restore):
+        cls._restore = restore

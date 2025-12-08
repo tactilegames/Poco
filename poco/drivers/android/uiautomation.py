@@ -21,7 +21,7 @@ from poco.sdk.interfaces.screen import ScreenInterface
 from poco.utils.hrpc.hierarchy import RemotePocoHierarchy
 from poco.utils.airtest.input import AirtestInput
 from poco.utils import six
-from poco.utils.device import default_device
+from poco.utils.device import default_device, DeviceConnections
 from poco.drivers.android.utils.installation import install, uninstall
 
 __all__ = ['AndroidUiautomationPoco', 'AndroidUiautomationHelper']
@@ -199,6 +199,8 @@ class AndroidUiautomationPoco(Poco):
             # 首次启动成功后，在后台线程里监控这个进程的状态，保持让它不退出
             self._keep_running_thread = KeepRunningInstrumentationThread(self, p0)
             self._keep_running_thread.start()
+
+        DeviceConnections(options.get('restore_device_connections', None))
 
         endpoint = "http://{}:{}".format(self.device_ip, p1)
         agent = AndroidPocoAgent(endpoint, self.ime, use_airtest_input)

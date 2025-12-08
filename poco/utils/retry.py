@@ -12,7 +12,7 @@ def restore_device_connections():
         DeviceConnections._restore()
 
 
-def retries_when(exctypes, count=3, delay=0.0):
+def retries_when(exctypes, count=5, delay=0.0):
     def wrapper(func):
         @functools.wraps(func)
         def wrapped(*args, **kwargs):

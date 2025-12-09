@@ -25,7 +25,7 @@ def retries_when(exctypes, count=5, delay=0.0):
                     return func(*args, **kwargs)
                 except exctypes as e:
                     ex = e
-                    cleanup_and_restore_device_connections()
+                    # cleanup_and_restore_device_connections()
                     time.sleep(delay)
             if ex:
                 raise ex

@@ -4,11 +4,14 @@ __author__ = 'lxn3032'
 import time
 import functools
 
+from airtest.core.android.adb import cleanup_adb_forward
+
 from poco.utils.device import DeviceConnections
 
 
-def restore_device_connections():
+def cleanup_and_restore_device_connections():
     if DeviceConnections._restore:
+        cleanup_adb_forward()
         DeviceConnections._restore()
 
 
@@ -22,7 +25,7 @@ def retries_when(exctypes, count=5, delay=0.0):
                     return func(*args, **kwargs)
                 except exctypes as e:
                     ex = e
-                    restore_device_connections()
+                    cleanup_and_restore_device_connections()
                     time.sleep(delay)
             if ex:
                 raise ex

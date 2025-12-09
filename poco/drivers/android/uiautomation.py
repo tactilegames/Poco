@@ -10,7 +10,8 @@ import threading
 import atexit
 
 from airtest.core.android.ime import YosemiteIme
-from airtest.core.error import AdbShellError, AirtestError
+from airtest.core.error import AdbShellError
+from airtest.core.error import AirtestError
 
 from hrpc.client import RpcClient
 from hrpc.transport.http import HttpTransport
@@ -21,8 +22,10 @@ from poco.sdk.interfaces.screen import ScreenInterface
 from poco.utils.hrpc.hierarchy import RemotePocoHierarchy
 from poco.utils.airtest.input import AirtestInput
 from poco.utils import six
-from poco.utils.device import default_device, DeviceConnections
-from poco.drivers.android.utils.installation import install, uninstall
+from poco.utils.device import default_device
+from poco.utils.device import DeviceConnections
+from poco.drivers.android.utils.installation import install
+from poco.drivers.android.utils.installation import uninstall
 
 __all__ = ['AndroidUiautomationPoco', 'AndroidUiautomationHelper']
 this_dir = os.path.dirname(os.path.realpath(__file__))

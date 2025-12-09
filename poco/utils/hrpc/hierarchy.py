@@ -18,20 +18,20 @@ class RemotePocoHierarchy(HierarchyInterface):
         self.attributor = attributor
 
     # node/hierarchy interface
-    @retries_when(TransportDisconnected, delay=3.0)
+    @retries_when(TransportDisconnected, delay=5.0)
     @transform_node_has_been_removed_exception
     def getAttr(self, nodes, name):
         return self.attributor.getAttr(nodes, name)
 
-    @retries_when(TransportDisconnected, delay=3.0)
+    @retries_when(TransportDisconnected, delay=5.0)
     @transform_node_has_been_removed_exception
     def setAttr(self, nodes, name, value):
         return self.attributor.setAttr(nodes, name, value)
 
-    @retries_when(TransportDisconnected, delay=3.0)
+    @retries_when(TransportDisconnected, delay=5.0)
     def select(self, query, multiple=False):
         return self.selector.select(query, multiple)
 
-    @retries_when(TransportDisconnected, delay=3.0)
+    @retries_when(TransportDisconnected, delay=5.0)
     def dump(self):
         return self.dumper.dumpHierarchy()

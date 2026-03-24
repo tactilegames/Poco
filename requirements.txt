@@ -1,5 +1,5 @@
 six
 requests
-airtest
+airtest @ git+https://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@github.com/tactilegames/Airtest.git/@master
 hrpc>=1.0.9
 websocket-client==0.48.0

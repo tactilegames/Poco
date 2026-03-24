@@ -1,4 +1,5 @@
 # coding=utf-8
+import time
 import xml.etree.ElementTree as ET
 from poco.pocofw import Poco
 from poco.agent import PocoAgent
@@ -10,6 +11,10 @@ try:
     from airtest.core.ios.rotation import XYTransformer
 except AttributeError:
     raise RuntimeError('The iOS module of Airtest>1.1.7 only supports python3, if you want to use, please upgrade to python3 first.')
+try:
+    from wda.exceptions import WDAStaleElementReferenceError
+except ImportError:
+    WDAStaleElementReferenceError = Exception
 from pprint import pprint
 
 
@@ -51,7 +56,19 @@ class iosDumper(FrozenUIDumper):
             switch_flag = True
         else:
             switch_flag = False
-        jsonObj = self.client.driver.source(format='json')
+        last_exc = None
+        jsonObj = None
+        for _attempt in range(3):
+            try:
+                jsonObj = self.client.driver.source(format='json')
+                last_exc = None
+                break
+            except WDAStaleElementReferenceError as e:
+                last_exc = e
+                if _attempt < 2:
+                    time.sleep(1.0)
+        if last_exc is not None:
+            raise last_exc
         w, h = self.size
         if self.client.orientation in ['LANDSCAPE', 'UIA_DEVICE_ORIENTATION_LANDSCAPERIGHT']:
             w, h = h, w

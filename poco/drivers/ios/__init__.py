@@ -10,10 +10,6 @@ try:
     from airtest.core.ios.rotation import XYTransformer
 except AttributeError:
     raise RuntimeError('The iOS module of Airtest>1.1.7 only supports python3, if you want to use, please upgrade to python3 first.')
-try:
-    from wda.exceptions import WDAStaleElementReferenceError
-except ImportError:
-    WDAStaleElementReferenceError = Exception
 from pprint import pprint
 
 
@@ -55,14 +51,7 @@ class iosDumper(FrozenUIDumper):
             switch_flag = True
         else:
             switch_flag = False
-        try:
-            jsonObj = self.client.driver.source(format='json')
-        except WDAStaleElementReferenceError:
-            # WDA server caches the XCUIApplication reference at session creation.
-            # When that reference goes stale (kAXErrorServerNotFound), creating a
-            # new session forces WDA to re-resolve the active application element.
-            fresh = self.client.driver.session()
-            jsonObj = fresh.source(format='json')
+        jsonObj = self.client.driver.source(format='json')
         w, h = self.size
         if self.client.orientation in ['LANDSCAPE', 'UIA_DEVICE_ORIENTATION_LANDSCAPERIGHT']:
             w, h = h, w

@@ -1,5 +1,4 @@
 # coding=utf-8
-import time
 import xml.etree.ElementTree as ET
 from poco.pocofw import Poco
 from poco.agent import PocoAgent
@@ -56,19 +55,14 @@ class iosDumper(FrozenUIDumper):
             switch_flag = True
         else:
             switch_flag = False
-        last_exc = None
-        jsonObj = None
-        for _attempt in range(3):
-            try:
-                jsonObj = self.client.driver.source(format='json')
-                last_exc = None
-                break
-            except WDAStaleElementReferenceError as e:
-                last_exc = e
-                if _attempt < 2:
-                    time.sleep(1.0)
-        if last_exc is not None:
-            raise last_exc
+        try:
+            jsonObj = self.client.driver.source(format='json')
+        except WDAStaleElementReferenceError:
+            # WDA server caches the XCUIApplication reference at session creation.
+            # When that reference goes stale (kAXErrorServerNotFound), creating a
+            # new session forces WDA to re-resolve the active application element.
+            fresh = self.client.driver.session()
+            jsonObj = fresh.source(format='json')
         w, h = self.size
         if self.client.orientation in ['LANDSCAPE', 'UIA_DEVICE_ORIENTATION_LANDSCAPERIGHT']:
             w, h = h, w

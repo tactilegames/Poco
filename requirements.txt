@@ -1,5 +1,5 @@
 six
 requests
-airtest @ git+https://${GITHUB_PAT_TOKEN}@github.com/tactilegames/Airtest.git/@fix-infinite
+airtest @ git+https://${GITHUB_PAT_TOKEN}@github.com/tactilegames/Airtest.git/@stale-error-2
 hrpc>=1.0.9
 websocket-client==0.48.0

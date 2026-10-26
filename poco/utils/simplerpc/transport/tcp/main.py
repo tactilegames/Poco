@@ -6,6 +6,9 @@ from .protocol import SimpleProtocolFilter
 
 
 DEFAULT_ADDR = ("0.0.0.0", 5001)
+# Read whatever has arrived, up to 4 MB. Callback.wait sleeps 5 ms between reads, so the old 4 KB read made a
+# 1 MB UI dump take ~250 reads: 1.6 s instead of 0.2 s on a Samsung S25 (AUTO-6253).
+READ_SIZE = 4 * 1024 * 1024
 
 
 class TcpClient(IClient):
@@ -33,7 +36,7 @@ class TcpClient(IClient):
 
     def recv(self):
         try:
-            msg_bytes = self.c.recv()
+            msg_bytes = self.c.recv(READ_SIZE)
         except socket.timeout:
             # print("socket recv timeout")
             msg_bytes = b""
